@@ -22,9 +22,20 @@ Database (MongoDB)
 👉 It’s a development tool that automatically restarts your server when you change code
 
 ## Port Map
+
 | Service        | Technology / Role        | Port                  |
 | -------------- | ------------------------ | --------------------- |
 | React Frontend | UI (User Interface)      | 5173                  |
 | Node API       | Backend Server (Express) | 5000                  |
 | Python ML      | AI / Resume Analysis     | 8000                  |
 | MongoDB Atlas  | Cloud Database           | Cloud (no fixed port) |
+
+# From your project root
+
+mkdir ml-service
+cd ml-service
+mkdir data\raw data\processed models\saved src
+python -m venv venv
+venv\Scripts\activate
+pip install fastapi uvicorn scikit-learn sentence-transformers spacy PyMuPDF pandas numpy joblib python-multipart
+python -m spacy download en_core_web_sm
