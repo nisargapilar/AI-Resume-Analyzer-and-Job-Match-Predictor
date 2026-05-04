@@ -1,4 +1,4 @@
-from fastapi import FastAPI, UploadFile, File, HTTPException
+from fastapi import FastAPI, UploadFile, File, HTTPException, Query
 from pydantic import BaseModel
 import fitz  # PyMuPDF
 import joblib
@@ -44,7 +44,6 @@ def health():
 def analyze_text(request: MatchRequest):
     result = match(request.resume_text, request.job_description)
     
-    # Predict job category
     if classifier and tfidf:
         clean = preprocess(request.resume_text)
         vector = tfidf.transform([clean])
@@ -56,13 +55,17 @@ def analyze_text(request: MatchRequest):
 @app.post("/analyze/pdf")
 async def analyze_pdf(
     resume: UploadFile = File(...),
-    job_description: str = ""
+    job_description: str = Query(default="")
 ):
     if not resume.filename.endswith('.pdf'):
         raise HTTPException(status_code=400, detail="Only PDF files allowed")
     
     file_bytes = await resume.read()
     resume_text = extract_text_from_pdf(file_bytes)
+    
+    print(f"Extracted text length: {len(resume_text)}")
+    print(f"Job description length: {len(job_description)}")
+    print(f"First 200 chars: {resume_text[:200]}")
     
     result = match(resume_text, job_description)
     
