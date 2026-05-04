@@ -6,7 +6,10 @@ from src.feature_extractor import get_match_score, load_tfidf
 SKILLS = [
     "python", "javascript", "java", "sql", "machine learning", "deep learning",
     "react", "node", "docker", "kubernetes", "aws", "git", "data science",
-    "tensorflow", "pytorch", "nlp", "api", "mongodb", "postgresql", "linux"
+    "tensorflow", "pytorch", "nlp", "api", "mongodb", "postgresql", "linux",
+    "typescript", "express", "fastapi", "azure", "flask", "django", "rest",
+    "html", "css", "tailwind", "nextjs", "graphql", "redis", "spark",
+    "pandas", "numpy", "scikit", "opencv", "blockchain", "devops"
 ]
 
 def extract_skills(text: str) -> list:
